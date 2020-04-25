@@ -1,0 +1,20 @@
+---
+# tasks file for install-name: adding a MySQL DB repo
+- name: make python3 the default
+  file:
+    path: /usr/bin/python
+    src: /usr/bin/python3
+    state: link
+
+- name: installing pip3 for python3
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: true
+  with_items:
+    - python3-pip
+  register: packages_installed
+
+- name: install PyMySQL using pip
+  pip:
+    name: PyMySQL

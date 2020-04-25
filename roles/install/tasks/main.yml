@@ -14,10 +14,10 @@
     - libmysqlclient-dev
   register: packages_installed
 
-#- name: pip install PyMySQL
-#  pip:
-#    name: PyMySQL
-#  register: pip_installed
+- name: pip install PyMySQL
+  pip:
+    name: PyMySQL
+  register: pip_installed
 
 - name: Enable and started MySQL
   service:
