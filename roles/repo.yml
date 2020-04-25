@@ -1,0 +1,7 @@
+-name: adding a MySQL DB repo
+  apt:
+    repo: https://dev.mysql.com/get/mysql-apt-config_0.8.10-1_all.deb
+    state: present
+    filename: mysql
+  register: repo_added
+

@@ -1,0 +1,7 @@
+- name: pb for installing a mysql DB
+  hosts: all
+  become: true
+  roles:
+    - role: repo.yml
+    - role: install.yml
+    - role: add-user.yml

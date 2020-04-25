@@ -1,0 +1,4 @@
+- name: pb for selecting something from a localy installed mysql DB
+  hosts: all
+  roles:
+    - role: select.yml
