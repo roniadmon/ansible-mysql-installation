@@ -1,0 +1,16 @@
+[mysqld]
+port = 3306
+socket: /var/run/mysqld/mysql.sock
+
+[mysql]
+max_allowed_packet = 16M
+prompt = '\u@\h [\d]> '
+default_character_set = utf8
+
+[mysqldump]
+max_allowed_packet =  16M
+
+[mysqld_safe]
+open_files_limit = 8192
+user = mysql
+log-error = {{ ansible_hostname }}_error.log

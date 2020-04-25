@@ -1,0 +1,34 @@
+- name: Generate mysql credentials
+  mysql_user:
+    name: root
+    host: '{{ item }}'
+    password: '{{ mysql_root_pass}}'
+  with_items: '{{ mysql_hosts }}'
+
+- name: .my.cnf adding a user and port
+  template:
+    src: roni.conf.j2
+    dest: ~/.my.cnf
+    mode: 0600
+    force: true
+  register: client_conf_status
+
+- name: server.cnf
+  template:
+    src: server.conf.j2
+    dest: /etc/mysql/conf.d/server.cnf
+    mode: 0644
+    force: true
+  when: mysql_config|default(false)
+  register: server_conf_status
+
+- name: Restart mysql to apply config
+  service:
+    name: mysql
+    state: restarted
+  when: client_conf_status.changed or server_conf_status.changed
+
+- name: Delete anonymous mysql user
+  mysql_user:
+    name: ""
+    state: absent
