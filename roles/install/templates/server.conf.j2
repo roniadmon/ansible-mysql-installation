@@ -13,4 +13,4 @@ max_allowed_packet =  16M
 [mysqld_safe]
 open_files_limit = 8192
 user = mysql
-log-error = {{ ansible_hostname }}_error.log
+log-error = '{{ ansible_hostname }}'_error.log

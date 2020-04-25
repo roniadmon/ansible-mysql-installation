@@ -1,2 +1,4 @@
 ---
 # tasks file for test
+- name: select all from default table
+  command:

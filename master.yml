@@ -1,5 +1,5 @@
----
-# master playbook
-- include: install.yml
-- include: select.yml
-
+- hosts: all
+  become: yes
+  become_method: sudo
+  roles:
+      - install 

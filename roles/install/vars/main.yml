@@ -1,2 +1,3 @@
 ---
 # vars file for install
+mysql_roni_pass: roni123 
