@@ -1,0 +1,10 @@
+-name: installing a MySQL DB on host
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: true
+  when: add_repo is success
+  with_items:
+    - mysql
+    - mysql-server
+
