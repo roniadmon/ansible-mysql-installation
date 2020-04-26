@@ -46,19 +46,6 @@
   when: packages_installed 
   register: server_conf_status
 
-- name: Restart mysql to apply config
-  service:
-    name: mysql
-    state: restarted
-  when: client_conf_status.changed or server_conf_status.changed
-
-- name: Restart mysql to apply config
-  service:
-    name: mysql
-    state: restarted
-  when: client_conf_status.changed or server_conf_status.changed
-
-
 - name: Generate mysql credentials
   #- name:
   #  command: "mysql_secure_installation"
@@ -68,11 +55,11 @@
     password: '{{ mysql_roni_pass}}'
   when: packages_installed
 
-- name: Restart mysql to apply config
-  service:
-    name: mysql
-    state: restarted
-  when: client_conf_status.changed or server_conf_status.changed
+  #- name: Restart mysql to apply config
+  #service:
+  #  name: mysql
+  #  state: restarted
+  # when: client_conf_status.changed or server_conf_status.changed
 
 #- name: Delete anonymous mysql user
 #  mysql_user:

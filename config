@@ -13,5 +13,6 @@ sudo apt install -y python-apt
 git config --global user.email roniadmon@gmail.com
 
 # Adding the host to be managed by ansible
+echo "ansible_python_interpreter=/usr/bin/python3  >> /etc/ansible/hosts
 echo `hostname` >> /etc/ansible/hosts
 cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
