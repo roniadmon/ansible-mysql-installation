@@ -4,15 +4,18 @@
 - name: installing a MySQL DB on host
   apt:
     name: "{{ item }}"
+    # name: ['mysql-client', 'mysql-server', 'python-pip', 'python-dev', 'libmysqlclient-dev']
+          #    name: ['mysql-client', mysql-server, python-pip, python-dev, libmysqlclient-dev]
     state: present
     update_cache: true
+  with_items:
+  register: packages_installed
   with_items:
     - mysql-client
     - mysql-server
     - python-pip
-    - python-dev 
+    - python-dev
     - libmysqlclient-dev
-  register: packages_installed
 
 - name: pip install PyMySQL
   pip:
@@ -25,19 +28,9 @@
     state: started
     enabled: true
 
-- name: Generate mysql credentials
-#- name: 
-#  command: "mysql_secure_installation"
-  mysql_user:
-    name: roni
-    host: '{{ ansible_host }}'
-    password: '{{ mysql_roni_pass}}'
-
-  when: packages_installed 
-
 - name: .my.cnf adding a user and port
   template:
-    src: roni.conf.j2
+    src: root.conf.j2
     dest: ~/.my.cnf
     mode: 0600
     force: true
@@ -59,7 +52,30 @@
     state: restarted
   when: client_conf_status.changed or server_conf_status.changed
 
+- name: Restart mysql to apply config
+  service:
+    name: mysql
+    state: restarted
+  when: client_conf_status.changed or server_conf_status.changed
+
+
+- name: Generate mysql credentials
+  #- name:
+  #  command: "mysql_secure_installation"
+  mysql_user:
+    name: user
+    host: '{{ ansible_host }}'
+    password: '{{ mysql_roni_pass}}'
+  when: packages_installed
+
+- name: Restart mysql to apply config
+  service:
+    name: mysql
+    state: restarted
+  when: client_conf_status.changed or server_conf_status.changed
+
 #- name: Delete anonymous mysql user
 #  mysql_user:
 #    name: ""
 #    state: absent
+

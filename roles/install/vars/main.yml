@@ -1,3 +1,4 @@
 ---
 # vars file for install
 mysql_roni_pass: roni123 
+apt-packages: ['mysql-client', 'mysql-server', 'python-pip', 'python-dev', 'libmysqlclient-dev']

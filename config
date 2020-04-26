@@ -1,13 +1,17 @@
 sudo apt-add-repository --yes --update ppa:ansible/ansible
-sudo apt install ansible
-sudo apt install git
+sudo apt install -y ansible
+sudo apt install -y git
 cd /etc/ansible/
 ssh-keygen
 echo "add all hosts to /etc/ansible/hosts file"
 
+sudo chown -R ubuntu /etc/ansible
 cd /etc/ansible/
-git init
 git clone --single-branch --branch new https://github.com/roniadmon/ansible-mysql-installation.git
-sudo apt install python-apt
+sudo apt install -y python-apt
 
 git config --global user.email roniadmon@gmail.com
+
+# Adding the host to be managed by ansible
+echo `hostname` >> /etc/ansible/hosts
+cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
